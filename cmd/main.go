@@ -31,6 +31,7 @@ func main() {
 	err = app.Shutdown()
 
 	if err != nil {
+
 		log.Fatal(err)
 	}
 
