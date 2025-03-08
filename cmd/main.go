@@ -4,7 +4,6 @@ import (
 	"github.com/TS22082/nerdingout_be/handlers"
 	"github.com/TS22082/nerdingout_be/middleware"
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 	"log"
 	"os"
@@ -14,13 +13,7 @@ func main() {
 	app := fiber.New()
 	err := godotenv.Load()
 
-	app.Use(middleware.MongoConnect(), middleware.Logging)
-	app.Use(cors.New(cors.Config{
-		AllowOrigins:     os.Getenv("ORIGIN"),
-		AllowMethods:     "GET,POST,HEAD,PUT,DELETE,PATCH",
-		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
-		AllowCredentials: true,
-	}))
+	app.Use(middleware.MongoConnect(), middleware.Logging, middleware.CORS())
 
 	articles := app.Group("/articles")
 
