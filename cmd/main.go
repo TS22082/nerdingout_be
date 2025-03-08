@@ -14,7 +14,7 @@ func main() {
 	app := fiber.New()
 	err := godotenv.Load()
 
-	app.Use(middleware.MongoConnect())
+	app.Use(middleware.MongoConnect(), middleware.Logging)
 	app.Use(cors.New(cors.Config{
 		AllowOrigins:     os.Getenv("ORIGIN"),
 		AllowMethods:     "GET,POST,HEAD,PUT,DELETE,PATCH",

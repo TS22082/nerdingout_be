@@ -3,6 +3,7 @@ module github.com/TS22082/nerdingout_be
 go 1.24.0
 
 require (
+	github.com/fatih/color v1.18.0
 	github.com/gofiber/fiber/v2 v2.52.6
 	github.com/joho/godotenv v1.5.1
 	go.mongodb.org/mongo-driver v1.17.3

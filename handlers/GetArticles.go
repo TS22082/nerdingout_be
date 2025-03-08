@@ -25,9 +25,5 @@ func GetArticles(ctx *fiber.Ctx) error {
 		return fiber.ErrInternalServerError
 	}
 
-	response := fiber.Map{
-		"msg": articles,
-	}
-
-	return ctx.JSON(response)
+	return ctx.JSON(articles)
 }
