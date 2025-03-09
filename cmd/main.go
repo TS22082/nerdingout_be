@@ -22,6 +22,10 @@ func main() {
 	articles.Patch("/:id", handlers.PatchArticle)
 	articles.Delete("/:id", handlers.DeleteArticle)
 
+	auth := app.Group("/auth")
+
+	auth.Get("gh", handlers.GhLogin)
+
 	const PORT = "0.0.0.0:8080"
 
 	if err := app.Listen(PORT); err != nil {
