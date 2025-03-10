@@ -18,3 +18,10 @@ type Article struct {
 	CreatedAt   string             `json:"createdAt" bson:"createdAt"`
 	UpdatedAt   string             `json:"updatedAt" bson:"updatedAt"`
 }
+
+type HTTPRequestParams struct {
+	URL     string
+	Method  string
+	Headers map[string]string
+	Body    interface{}
+}
