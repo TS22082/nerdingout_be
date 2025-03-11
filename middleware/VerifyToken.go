@@ -53,9 +53,10 @@ func VerifyToken(ctx *fiber.Ctx) error {
 		}
 
 		// Token is valid and not expired
-		userID := claims["id"]
+		userID := claims["userId"]
 		ctx.Locals("userId", userID)
 
+		fmt.Println("user id is ==>", userID)
 		return ctx.Next()
 	}
 
