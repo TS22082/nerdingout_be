@@ -2,13 +2,20 @@ package handlers
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/TS22082/nerdingout_be/types"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 	"io"
 	"net/http"
 	"os"
+	"time"
 )
 
 func GhLogin(ctx *fiber.Ctx) error {
@@ -115,7 +122,13 @@ func GhLogin(ctx *fiber.Ctx) error {
 	if err != nil {
 		return fiber.ErrInternalServerError
 	}
-	defer resp.Body.Close()
+
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+			fmt.Println(err)
+		}
+	}(resp.Body)
 
 	bodyBytes, err = io.ReadAll(resp.Body)
 	if err != nil {
@@ -138,7 +151,42 @@ func GhLogin(ctx *fiber.Ctx) error {
 		}
 	}
 
+	mongoDB := ctx.Locals("mongoDB").(*mongo.Database)
+	userCollection := mongoDB.Collection("Users")
+	userFound := userCollection.FindOne(context.Background(), bson.D{{Key: "email", Value: primaryEmail}})
+
+	var user types.User
+
+	err = userFound.Decode(&user)
+
+	if err != nil && errors.Is(err, mongo.ErrNoDocuments) {
+		newUser := types.User{
+			Email:     primaryEmail,
+			CreatedAt: time.Now().UTC().Format(time.RFC3339),
+		}
+		insertResult, err := userCollection.InsertOne(context.Background(), newUser)
+
+		if err != nil {
+			return fiber.ErrInternalServerError
+		}
+
+		newUser.ID = insertResult.InsertedID.(primitive.ObjectID)
+		user = newUser
+	}
+
+	if err != nil && !errors.Is(err, mongo.ErrNoDocuments) {
+		return fiber.ErrInternalServerError
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"userId": user.ID.Hex(),
+		"exp":    time.Now().Add(time.Hour * 24).Unix(),
+	})
+
+	tokenString, err := token.SignedString([]byte(os.Getenv("GH_SECRET")))
+
 	return ctx.JSON(fiber.Map{
-		"data": primaryEmail,
+		"token": tokenString,
+		"user":  user,
 	})
 }

@@ -3,9 +3,9 @@ package types
 import "go.mongodb.org/mongo-driver/bson/primitive"
 
 type User struct {
-	ID       primitive.ObjectID `bson:"_id,omitempty"`
-	Email    string             `bson:"email,omitempty"`
-	Password string             `bson:"password,omitempty"`
+	ID        primitive.ObjectID `json:"id" bson:"_id,omitempty"`
+	Email     string             `json:"email" bson:"email,omitempty"`
+	CreatedAt string             `json:"createdAt" bson:"createdAt"`
 }
 
 type Article struct {
