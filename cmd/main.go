@@ -25,6 +25,7 @@ func main() {
 	auth := app.Group("/auth")
 
 	auth.Get("gh", handlers.GhLogin)
+	auth.Get("verify", middleware.VerifyToken, handlers.VerifyToken)
 
 	const PORT = "0.0.0.0:8080"
 

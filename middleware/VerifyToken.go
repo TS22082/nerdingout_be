@@ -1,11 +1,17 @@
 package middleware
 
 import (
+	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
 	"os"
 	"time"
 )
+
+// VerifyToken is a middleware function that verifies the JWT token from the Authorization header.
+// It checks the token's validity, expiration, and extracts the user ID from the token claims.
+// If the token is valid, the user ID is stored in the request context for subsequent handlers to use.
+// If the token is invalid or expired, it returns a 401 Unauthorized status with an appropriate error message.
 
 func VerifyToken(ctx *fiber.Ctx) error {
 	authToken := ctx.Get("Authorization")
@@ -18,12 +24,14 @@ func VerifyToken(ctx *fiber.Ctx) error {
 
 	parsedToken, err := jwt.Parse(authToken, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fiber.NewError(fiber.StatusUnauthorized, "unexpected signing method")
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
+
 		return []byte(os.Getenv("JWT_SECRET")), nil
 	})
 
 	if err != nil {
+		fmt.Println("error ==>", err)
 		return ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 			"error": "failed to parse token",
 		})

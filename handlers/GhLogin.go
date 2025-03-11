@@ -183,7 +183,7 @@ func GhLogin(ctx *fiber.Ctx) error {
 		"exp":    time.Now().Add(time.Hour * 24).Unix(),
 	})
 
-	tokenString, err := token.SignedString([]byte(os.Getenv("GH_SECRET")))
+	tokenString, err := token.SignedString([]byte(os.Getenv("JWT_SECRET")))
 
 	return ctx.JSON(fiber.Map{
 		"token": tokenString,
