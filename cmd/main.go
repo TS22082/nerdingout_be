@@ -18,9 +18,9 @@ func main() {
 	articles := app.Group("/articles")
 
 	articles.Get("/", handlers.GetArticles)
-	articles.Post("/", handlers.PostArticle)
-	articles.Patch("/:id", handlers.PatchArticle)
-	articles.Delete("/:id", handlers.DeleteArticle)
+	articles.Post("/", middleware.VerifyToken, handlers.PostArticle)
+	articles.Patch("/:id", middleware.VerifyToken, handlers.PatchArticle)
+	articles.Delete("/:id", middleware.VerifyToken, handlers.DeleteArticle)
 
 	auth := app.Group("/auth")
 
