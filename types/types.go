@@ -31,14 +31,3 @@ type HTTPRequestParams struct {
 	Headers map[string]string
 	Body    interface{}
 }
-
-type T struct {
-	Title       string `json:"title"`
-	CoverPhoto  string `json:"coverPhoto"`
-	Description string `json:"description"`
-	Body        []struct {
-		Type  string `json:"type"`
-		Value string `json:"value"`
-	} `json:"body"`
-	Published bool `json:"published"`
-}

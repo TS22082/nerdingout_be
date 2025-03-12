@@ -6,11 +6,13 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"time"
 )
 
 func PostArticle(ctx *fiber.Ctx) error {
 
 	mongoDB := ctx.Locals("mongoDB").(*mongo.Database)
+	timeNow := time.Now().UTC().Format(time.RFC3339)
 
 	if mongoDB == nil {
 		return ctx.Status(503).JSON(fiber.Map{
@@ -20,17 +22,10 @@ func PostArticle(ctx *fiber.Ctx) error {
 
 	var articleCollection = mongoDB.Collection("Articles")
 
-	//article := types.Article{
-	//	CreatorId:   primitive.NewObjectID(),
-	//	CreatedAt:   time.Now().UTC().Format(time.RFC3339),
-	//	UpdatedAt:   time.Now().UTC().Format(time.RFC3339),
-	//	IsPublished: false,
-	//	Title:       "",
-	//	Description: "",
-	//	Body:        []types.BodyEntryType{},
-	//}
-
 	article := new(types.Article)
+
+	article.UpdatedAt = timeNow
+	article.CreatedAt = timeNow
 
 	err := ctx.BodyParser(&article)
 
