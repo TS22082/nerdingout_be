@@ -6,10 +6,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"time"
 )
 
 func PostArticle(ctx *fiber.Ctx) error {
+
 	mongoDB := ctx.Locals("mongoDB").(*mongo.Database)
 
 	if mongoDB == nil {
@@ -20,14 +20,17 @@ func PostArticle(ctx *fiber.Ctx) error {
 
 	var articleCollection = mongoDB.Collection("Articles")
 
-	article := types.Article{
-		CreatorId:   primitive.NewObjectID(),
-		CreatedAt:   time.Now().UTC().Format(time.RFC3339),
-		UpdatedAt:   time.Now().UTC().Format(time.RFC3339),
-		IsPublished: false,
-		Title:       "",
-		Body:        "",
-	}
+	//article := types.Article{
+	//	CreatorId:   primitive.NewObjectID(),
+	//	CreatedAt:   time.Now().UTC().Format(time.RFC3339),
+	//	UpdatedAt:   time.Now().UTC().Format(time.RFC3339),
+	//	IsPublished: false,
+	//	Title:       "",
+	//	Description: "",
+	//	Body:        []types.BodyEntryType{},
+	//}
+
+	article := new(types.Article)
 
 	err := ctx.BodyParser(&article)
 

@@ -56,7 +56,6 @@ func VerifyToken(ctx *fiber.Ctx) error {
 		userID := claims["userId"]
 		ctx.Locals("userId", userID)
 
-		fmt.Println("user id is ==>", userID)
 		return ctx.Next()
 	}
 

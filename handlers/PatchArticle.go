@@ -29,7 +29,7 @@ func PatchArticle(ctx *fiber.Ctx) error {
 
 	articleUpdates := types.Article{
 		Title:       "",
-		Body:        "",
+		Body:        []types.BodyEntryType{},
 		UpdatedAt:   time.Now().UTC().Format(time.RFC3339),
 		IsPublished: false,
 	}
