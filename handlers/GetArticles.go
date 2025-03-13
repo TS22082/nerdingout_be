@@ -14,6 +14,7 @@ func GetArticles(ctx *fiber.Ctx) error {
 	articlesCollection := mongoDB.Collection("Articles")
 
 	filter := bson.M{}
+
 	var articles []types.Article
 
 	cursor, err := articlesCollection.Find(context.Background(), filter)

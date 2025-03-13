@@ -16,14 +16,16 @@ func main() {
 	app.Use(middleware.MongoConnect(), middleware.Logging, middleware.CORS())
 
 	articles := app.Group("/articles")
-
-	articles.Get("/", handlers.GetArticles)
+	articles.Get("/", middleware.VerifyToken, handlers.GetArticles)
 	articles.Post("/", middleware.VerifyToken, handlers.PostArticle)
 	articles.Patch("/:id", middleware.VerifyToken, handlers.PatchArticle)
 	articles.Delete("/:id", middleware.VerifyToken, handlers.DeleteArticle)
 
-	auth := app.Group("/auth")
+	published := articles.Group("/published")
+	published.Get("/", handlers.GetPublishedArticles)
+	published.Get("/:id", handlers.GetPublishedArticle)
 
+	auth := app.Group("/auth")
 	auth.Get("gh", handlers.GhLogin)
 	auth.Get("verify", middleware.VerifyToken, handlers.VerifyToken)
 
