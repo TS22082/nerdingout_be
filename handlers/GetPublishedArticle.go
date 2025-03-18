@@ -23,7 +23,7 @@ func GetPublishedArticle(ctx *fiber.Ctx) error {
 		return fiber.ErrInternalServerError
 	}
 
-	filter := bson.D{{"_id", articleIdHex}}
+	filter := bson.D{{"_id", articleIdHex}, {"isPublished", true}}
 
 	var article types.Article
 

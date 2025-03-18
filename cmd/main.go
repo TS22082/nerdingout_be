@@ -13,19 +13,23 @@ func main() {
 	app := fiber.New()
 	err := godotenv.Load()
 
+	SeedCategoriesIfRequired()
+
 	app.Use(middleware.MongoConnect(), middleware.Logging, middleware.CORS())
 
 	articles := app.Group("/articles")
+	published := articles.Group("/published")
+	auth := app.Group("/auth")
+
+	published.Get("/", handlers.GetPublishedArticles)
+	published.Get("/:id", handlers.GetPublishedArticle)
+
 	articles.Get("/", middleware.VerifyToken, handlers.GetArticles)
+	articles.Get("/:id", middleware.VerifyToken, handlers.GetArticle)
 	articles.Post("/", middleware.VerifyToken, handlers.PostArticle)
 	articles.Patch("/:id", middleware.VerifyToken, handlers.PatchArticle)
 	articles.Delete("/:id", middleware.VerifyToken, handlers.DeleteArticle)
 
-	published := articles.Group("/published")
-	published.Get("/", handlers.GetPublishedArticles)
-	published.Get("/:id", handlers.GetPublishedArticle)
-
-	auth := app.Group("/auth")
 	auth.Get("gh", handlers.GhLogin)
 	auth.Get("verify", middleware.VerifyToken, handlers.VerifyToken)
 
