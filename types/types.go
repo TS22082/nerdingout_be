@@ -25,6 +25,11 @@ type Article struct {
 	UpdatedAt   string             `json:"updatedAt" bson:"updatedAt"`
 }
 
+type Category struct {
+	Id    primitive.ObjectID `json:"id" bson:"_id,omitempty"`
+	Label string             `json:"label" bson:"label"`
+}
+
 type HTTPRequestParams struct {
 	URL     string
 	Method  string

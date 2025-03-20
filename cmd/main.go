@@ -20,6 +20,7 @@ func main() {
 	articles := app.Group("/articles")
 	published := articles.Group("/published")
 	auth := app.Group("/auth")
+	categories := app.Group("/categories")
 
 	published.Get("/", handlers.GetPublishedArticles)
 	published.Get("/:id", handlers.GetPublishedArticle)
@@ -32,6 +33,8 @@ func main() {
 
 	auth.Get("gh", handlers.GhLogin)
 	auth.Get("verify", middleware.VerifyToken, handlers.VerifyToken)
+
+	categories.Get("/", handlers.GetCategories)
 
 	const PORT = "0.0.0.0:8080"
 
