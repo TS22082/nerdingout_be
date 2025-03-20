@@ -37,14 +37,12 @@ func main() {
 
 	if err := app.Listen(PORT); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
-		os.Exit(1)
 	}
 
 	err = app.Shutdown()
 
 	if err != nil {
 		log.Fatal(err)
-		os.Exit(1)
 	}
 
 	os.Exit(0)
