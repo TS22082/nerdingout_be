@@ -31,8 +31,8 @@ func main() {
 	articles.Patch("/:id", middleware.VerifyToken, handlers.PatchArticle)
 	articles.Delete("/:id", middleware.VerifyToken, handlers.DeleteArticle)
 
-	auth.Get("gh", handlers.GhLogin)
-	auth.Get("verify", middleware.VerifyToken, handlers.VerifyToken)
+	auth.Get("/gh", handlers.GhLogin)
+	auth.Get("/verify", middleware.VerifyToken, handlers.VerifyToken)
 
 	categories.Get("/", handlers.GetCategories)
 

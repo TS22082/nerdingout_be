@@ -23,6 +23,7 @@ type Article struct {
 	IsPublished bool               `json:"isPublished" bson:"isPublished"`
 	CreatedAt   string             `json:"createdAt" bson:"createdAt"`
 	UpdatedAt   string             `json:"updatedAt" bson:"updatedAt"`
+	CategoryId  primitive.ObjectID `json:"categoryId" bson:"categoryId"`
 }
 
 type Category struct {
