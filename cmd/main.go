@@ -13,8 +13,6 @@ func main() {
 	app := fiber.New()
 	err := godotenv.Load()
 
-	SeedCategoriesIfRequired()
-
 	app.Use(middleware.MongoConnect(), middleware.Logging, middleware.CORS())
 
 	articles := app.Group("/articles")
