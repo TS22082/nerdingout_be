@@ -25,11 +25,13 @@ func main() {
 	published.Get("/", handlers.GetPublishedArticles)
 	published.Get("/:id", handlers.GetPublishedArticle)
 
-	articles.Get("/", middleware.VerifyToken, handlers.GetArticles)
-	articles.Get("/:id", middleware.VerifyToken, handlers.GetArticle)
-	articles.Post("/", middleware.VerifyToken, handlers.PostArticle)
-	articles.Patch("/:id", middleware.VerifyToken, handlers.PatchArticle)
-	articles.Delete("/:id", middleware.VerifyToken, handlers.DeleteArticle)
+	articles.Use(middleware.VerifyToken)
+
+	articles.Get("/", handlers.GetArticles)
+	articles.Get("/:id", handlers.GetArticle)
+	articles.Post("/", handlers.PostArticle)
+	articles.Patch("/:id", handlers.PatchArticle)
+	articles.Delete("/:id", handlers.DeleteArticle)
 
 	auth.Get("/gh", handlers.GhLogin)
 	auth.Get("/verify", middleware.VerifyToken, handlers.VerifyToken)
