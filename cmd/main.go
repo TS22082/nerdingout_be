@@ -6,12 +6,14 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"log"
-	"os"
 )
 
 func main() {
 	app := fiber.New()
-	err := godotenv.Load()
+
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("Error loading .env file")
+	}
 
 	app.Use(middleware.MongoConnect(), middleware.Logging, middleware.CORS())
 
@@ -40,11 +42,7 @@ func main() {
 		log.Fatalf("Failed to start server: %v", err)
 	}
 
-	err = app.Shutdown()
-
-	if err != nil {
+	if err := app.Shutdown(); err != nil {
 		log.Fatal(err)
 	}
-
-	os.Exit(0)
 }
