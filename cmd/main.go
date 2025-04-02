@@ -12,7 +12,7 @@ func main() {
 	app := fiber.New()
 
 	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error loading .env file")
+		log.Fatal("Error loading .env file", err)
 	}
 
 	app.Use(middleware.MongoConnect(), middleware.Logging, middleware.CORS())
