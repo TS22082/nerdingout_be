@@ -17,6 +17,12 @@ func main() {
 
 	app.Use(middleware.MongoConnect(), middleware.Logging, middleware.CORS())
 
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.JSON(fiber.Map{
+			"hello": "world",
+		})
+	})
+
 	articles := app.Group("/articles")
 	published := articles.Group("/published")
 	auth := app.Group("/auth")
