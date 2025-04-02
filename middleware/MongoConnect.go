@@ -41,6 +41,8 @@ func MongoConnect() fiber.Handler {
 		os.Exit(1)
 	}
 
+	fmt.Println("Connected to MongoDB!")
+
 	// Middleware function to store the MongoDB client in the request context
 	return func(c *fiber.Ctx) error {
 		c.Locals("mongoDB", client.Database("nerdingout"))
