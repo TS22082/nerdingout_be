@@ -10,5 +10,11 @@ RUN go build -v -o /run-app ./cmd
 
 FROM debian:bookworm
 
+# Install CA certificates to ensure TLS connections can be verified
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY --from=builder /run-app /usr/local/bin/
 CMD ["run-app"]
+

@@ -6,22 +6,17 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 	"log"
+	"os"
 )
 
 func main() {
-	app := fiber.New()
-
 	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error loading .env file", err)
+		log.Printf("Failed to load .env: %v: ", err)
 	}
 
-	app.Use(middleware.MongoConnect(), middleware.Logging, middleware.CORS())
+	app := fiber.New()
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.JSON(fiber.Map{
-			"hello": "world",
-		})
-	})
+	app.Use(middleware.MongoConnect(), middleware.Logging, middleware.CORS())
 
 	articles := app.Group("/articles")
 	published := articles.Group("/published")
@@ -51,6 +46,8 @@ func main() {
 	}
 
 	if err := app.Shutdown(); err != nil {
-		log.Fatal(err)
+		log.Fatal("Error shutting down server", err)
 	}
+
+	os.Exit(0)
 }
