@@ -38,6 +38,7 @@ func main() {
 	auth.Get("/verify", middleware.VerifyToken, handlers.VerifyToken)
 
 	categories.Get("/", handlers.GetCategories)
+	categories.Get("/published", handlers.GetPublishedCategories)
 
 	const PORT = "0.0.0.0:8080"
 

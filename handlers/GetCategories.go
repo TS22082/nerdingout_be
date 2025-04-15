@@ -24,7 +24,8 @@ func GetCategories(ctx *fiber.Ctx) error {
 		return fiber.ErrInternalServerError
 	}
 
-	if err = cursor.All(context.Background(), &categories); err != nil {
+	if err := cursor.All(context.Background(), &categories); err != nil {
+
 		fmt.Println("Error getting categories", err)
 	}
 
