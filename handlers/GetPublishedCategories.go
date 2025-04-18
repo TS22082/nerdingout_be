@@ -31,7 +31,7 @@ func GetPublishedCategories(ctx *fiber.Ctx) error {
 	var response []types.Category
 	for _, category := range categories {
 		var article types.Article
-		articleFilter := bson.M{"categoryId": category.Id}
+		articleFilter := bson.M{"categoryId": category.Id, "isPublished": true}
 
 		err = articlesCollection.FindOne(requestCtx, articleFilter).Decode(&article)
 		if errors.Is(err, mongo.ErrNoDocuments) {
