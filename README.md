@@ -1,6 +1,3 @@
-Here is the Markdown code for the README file:
-
-```markdown
 # Nerding Out Backend API
 
 ==========================
@@ -18,7 +15,8 @@ This repository contains the source code for the Nerding Out backend API, which 
 ### Prerequisites
 
 * Go installed on your machine
-* Docker installed on your machine (for local development)
+* The frontend installed (more instructions [here](https://github.com/TS22082/nerdingout_fe))
+* Mongodb installed on your computer (min version 7)
 
 ### Local Development
 1. Clone this repository: `git clone https://github.com/TS22082/nerdingout_be`
@@ -33,4 +31,3 @@ The Nerding Out backend API is deployed on Fly.io, which provides automatic scal
 ---------
 
 This project is licensed under the MIT License. See `LICENSE` for details.
-```
