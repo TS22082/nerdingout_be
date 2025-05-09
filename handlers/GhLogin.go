@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/TS22082/nerdingout_be/types"
+	"github.com/TS22082/nerdingout_be/utils"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
@@ -149,6 +150,10 @@ func GhLogin(ctx *fiber.Ctx) error {
 			primaryEmail = email["email"].(string)
 			break
 		}
+	}
+
+	if err := utils.ValidateEmail(primaryEmail); err != nil {
+		return fiber.ErrInternalServerError
 	}
 
 	mongoDB := ctx.Locals("mongoDB").(*mongo.Database)
