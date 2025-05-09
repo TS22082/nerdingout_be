@@ -26,6 +26,12 @@ This repository contains the source code for the Nerding Out backend API, which 
 ### Deployment
 The Nerding Out backend API is deployed on Fly.io, which provides automatic scaling and load balancing.
 
+Running Godocs:
+1. navigate to root of project
+2. run `godoc -http=:6060`
+3. navigate to `http://localhost:6060
+4. Under "Packages" click "Third Party" to be scrolled to the repos docs.
+
 
 ## License
 ---------
