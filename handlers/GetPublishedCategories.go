@@ -8,6 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+// GetPublishedCategories gets all the published categories to be used in the dropdown  on the main page
 func GetPublishedCategories(ctx *fiber.Ctx) error {
 	mongoDB := ctx.Locals("mongoDB").(*mongo.Database)
 	categoriesCollection := mongoDB.Collection("Categories")

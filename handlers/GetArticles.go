@@ -9,6 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+// GetArticles get all articles published or not. Used for dashboard page on app
 func GetArticles(ctx *fiber.Ctx) error {
 	mongoDB := ctx.Locals("mongoDB").(*mongo.Database)
 	articlesCollection := mongoDB.Collection("Articles")

@@ -10,6 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+// GetPublishedArticles get all the published articles for the main page
 func GetPublishedArticles(ctx *fiber.Ctx) error {
 	mongoDB := ctx.Locals("mongoDB").(*mongo.Database)
 	articlesCollection := mongoDB.Collection("Articles")

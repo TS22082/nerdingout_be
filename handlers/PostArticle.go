@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// PostArticle creates a new unpublished article, to be used in an admins dashboard page
 func PostArticle(ctx *fiber.Ctx) error {
 
 	mongoDB := ctx.Locals("mongoDB").(*mongo.Database)

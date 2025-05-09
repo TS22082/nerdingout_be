@@ -11,6 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+// GetPublishedArticle Gets a published article for a single published article view.
 func GetPublishedArticle(ctx *fiber.Ctx) error {
 	mongoDB := ctx.Locals("mongoDB").(*mongo.Database)
 	articlesCollection := mongoDB.Collection("Articles")

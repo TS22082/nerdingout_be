@@ -10,6 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+// GetArticle gets an article by an article id for a single article edit/ view admin page
 func GetArticle(ctx *fiber.Ctx) error {
 	mongoDB := ctx.Locals("mongoDB").(*mongo.Database)
 	articlesCollection := mongoDB.Collection("Articles")

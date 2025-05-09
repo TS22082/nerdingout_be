@@ -19,6 +19,8 @@ import (
 	"time"
 )
 
+// GhLogin handles the login or registration after a user clicks on the github SSO login button
+// if a user matching the github auth tokens emails matches someone in our system it will login, otherwise it will create a new user then login for them
 func GhLogin(ctx *fiber.Ctx) error {
 
 	code := ctx.Query("code")

@@ -10,6 +10,7 @@ import (
 	"time"
 )
 
+// PatchArticle updates an article by its id, to be used in an admins dashboard
 func PatchArticle(ctx *fiber.Ctx) error {
 	mongoDB := ctx.Locals("mongoDB").(*mongo.Database)
 	articleId := ctx.Params("id")

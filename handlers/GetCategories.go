@@ -9,6 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+// GetCategories retrieves all the categories available in the DB
 func GetCategories(ctx *fiber.Ctx) error {
 	mongoDB := ctx.Locals("mongoDB").(*mongo.Database)
 	categoriesCollection := mongoDB.Collection("Categories")

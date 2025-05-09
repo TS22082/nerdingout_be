@@ -10,6 +10,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
+// main
 func main() {
 	if err := godotenv.Load(); err != nil {
 		log.Printf("Failed to load .env: %v: ", err)
