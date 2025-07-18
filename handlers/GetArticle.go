@@ -3,6 +3,7 @@ package handlers
 import (
 	"context"
 	"errors"
+
 	"github.com/TS22082/nerdingout_be/types"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
@@ -22,7 +23,7 @@ func GetArticle(ctx *fiber.Ctx) error {
 		return fiber.ErrInternalServerError
 	}
 
-	filter := bson.D{{"_id", articleIdHex}}
+	filter := bson.D{{Key: "_id", Value: articleIdHex}}
 
 	var article types.Article
 

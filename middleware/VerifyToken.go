@@ -2,10 +2,11 @@ package middleware
 
 import (
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
-	"github.com/gofiber/fiber/v2"
 	"os"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
+	"github.com/gofiber/fiber/v2"
 )
 
 // VerifyToken is a middleware function that verifies the JWT token from the Authorization header.

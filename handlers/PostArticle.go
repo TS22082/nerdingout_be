@@ -2,11 +2,12 @@ package handlers
 
 import (
 	"context"
+	"time"
+
 	"github.com/TS22082/nerdingout_be/types"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"time"
 )
 
 // PostArticle creates a new unpublished article, to be used in an admins dashboard page
