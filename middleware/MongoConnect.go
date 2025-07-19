@@ -25,7 +25,11 @@ func MongoConnect() fiber.Handler {
 	// Retrieve MongoDB URI from environment variables
 	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
 
-	clientOptions := options.Client().ApplyURI(os.Getenv("MONGO_URI")).SetServerAPIOptions(serverAPI)
+	mongo_uri := os.Getenv("MONGO_URI")
+
+	fmt.Println("Mongo URI ==>", mongo_uri)
+
+	clientOptions := options.Client().ApplyURI(mongo_uri).SetServerAPIOptions(serverAPI)
 
 	// Connect to MongoDB
 	client, err := mongo.Connect(ctx, clientOptions)
