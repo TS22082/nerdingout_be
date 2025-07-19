@@ -3,7 +3,6 @@ package handlers
 import (
 	"context"
 	"fmt"
-	"os"
 
 	"github.com/TS22082/nerdingout_be/types"
 	"github.com/gofiber/fiber/v2"
@@ -15,10 +14,6 @@ import (
 func GetArticles(ctx *fiber.Ctx) error {
 	mongoDB := ctx.Locals("mongoDB").(*mongo.Database)
 	articlesCollection := mongoDB.Collection("Articles")
-
-	mongo_uri := os.Getenv("MONGO_URI")
-
-	fmt.Println("Mongo URI ==>", mongo_uri)
 
 	filter := bson.M{}
 
